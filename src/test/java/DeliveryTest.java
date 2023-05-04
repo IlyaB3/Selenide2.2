@@ -6,8 +6,8 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Condition.exactText;
+import static com.codeborne.selenide.Selenide.*;
 
 public class DeliveryTest {
 
@@ -26,7 +26,7 @@ public class DeliveryTest {
         $("[data-test-id='name'] input").setValue("Петров Петр");
         $("[data-test-id='phone'] input").setValue("+79165562525");
         $("[data-test-id='agreement']").click();
-        $("button.button").click();
-        $(".notification__content").shouldBe(Condition.visible, Duration.ofSeconds(15)).shouldHave(Condition.exactText("Встреча успешно забронирована на " + currentDate));
+        $$("button").find(exactText("Забронировать")).click();
+        $(".notification__content").shouldBe(Condition.visible, Duration.ofSeconds(15)).shouldHave(exactText("Встреча успешно забронирована на " + currentDate));
     }
 }
